@@ -1,1 +1,1 @@
-const pool = require("pg").Pool();
+const pool = require("pg").Pool;
