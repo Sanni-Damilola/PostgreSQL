@@ -1,1 +1,9 @@
-const pool = require("pg").Pool;
+const importPool = require("pg").Pool;
+
+const pool = new importPool({
+  user: "postgress",
+  host: "localhost",
+  database: "",
+  password: "",
+  port: 2024,
+});
