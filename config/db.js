@@ -1,4 +1,5 @@
 const importPool = require("pg").Pool;
+const keys = require("./config/keys");
 
 const pool = new importPool({
   user: "postgress",
