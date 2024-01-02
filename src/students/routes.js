@@ -1,9 +1,7 @@
 const { Router } = require("express");
-
+const { getStudents } = require("./controller");
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("using api route");
-});
+router.get("/", getStudents);
 
 module.exports = router;
