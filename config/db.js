@@ -1,12 +1,13 @@
-const importPool = require("pg").Pool;
-const keys = require("./config/keys");
+const keys = require("./keys");
 
-const pool = new importPool({
-  user: "postgress",
+const pool = require("pg").Pool;
+
+const data = new pool({
+  user: "postgres",
   host: "localhost",
   database: "students",
-  password: keys?.psqlPassword,
+  password: keys.psqlPassword,
   port: 2024,
 });
 
-module.exports = pool;
+module.exports = data;

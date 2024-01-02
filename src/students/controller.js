@@ -1,7 +1,10 @@
-const pool = require("../../config/db");
+const data = require("../../config/db");
 
 const getStudents = (req, res) => {
-  console.log("Getting Studetns");
+  data.query("SELECT * FROM students", (error, result) => {
+    if (error) throw error;
+    res.status(200).json(result.rows);
+  });
 };
 
 module.exports = { getStudents };
