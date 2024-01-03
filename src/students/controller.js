@@ -4,6 +4,7 @@ const {
   SELECT_STUDENT_BY_ID,
   CHECK_EMAIL_EXISTENCE,
   INSERT_QUERY,
+  REMOVE_STUDENT,
 } = require("./queries");
 
 // Get all students
@@ -52,4 +53,25 @@ const addStudent = async (req, res) => {
   }
 };
 
-module.exports = { getStudents, getStudentById, addStudent };
+// Remove student
+const removeStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Execute the query to remove the student by ID
+    const result = await data.query(REMOVE_STUDENT, [id]);
+
+    // Check if a student was removed
+    if (result.rowCount === 0) {
+      return res.status(404).send(`Student with ID (${id}) not found`);
+    }
+
+    return res.status(200).send(`Student with ID (${id}) removed successfully`);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
+
+module.exports = { getStudents, getStudentById, addStudent, removeStudent };
