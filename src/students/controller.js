@@ -5,6 +5,7 @@ const {
   CHECK_EMAIL_EXISTENCE,
   INSERT_QUERY,
   REMOVE_STUDENT,
+  UPDATEQUERY,
 } = require("./queries");
 
 // Get all students
@@ -74,4 +75,28 @@ const removeStudent = async (req, res) => {
 };
 
 
-module.exports = { getStudents, getStudentById, addStudent, removeStudent };
+// Update student
+const updateStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, age, dob } = req.body;
+
+    // Check if the student exists
+    const checkExistenceResult = await data.query(CHECK_STUDENT_EXISTENCE, [id]);
+
+    if (!checkExistenceResult.rows.length) {
+      return res.status(404).send(`Student with ID (${id}) not found`);
+    }
+
+    // Update the student's information
+    await data.query(UPDATEQUERY, [name, email, age, dob, id]);
+
+    return res.status(200).send(`Student with ID (${id}) updated successfully`);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
+
+module.exports = { getStudents, getStudentById, addStudent, removeStudent, updateStudent };
