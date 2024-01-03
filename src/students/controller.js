@@ -8,7 +8,7 @@ const getStudents = (req, res) => {
   });
 };
 const getStudentsById = (req, res) => {
-  const { id } = req.pramas;
+  const { id } = req.params;
   id = Number(id);
   console.log("here", typeof id);
   data.query(queryStudentsById, [id], (error, result) => {
