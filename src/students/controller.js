@@ -81,8 +81,8 @@ const updateStudent = async (req, res) => {
     const { name, email, age, dob } = req.body;
 
     // Check if the student exists
-    const checkExistenceResult = await data.query(CHECK_EMAIL_EXISTENCE, [id]);
-    console.log("data", checkExistenceResult);
+    const checkExistenceResult = await data.query(SELECT_STUDENT_BY_ID, [id]);
+
     if (!checkExistenceResult.rows.length) {
       return res.status(404).send(`Student with ID (${id}) not found`);
     }
