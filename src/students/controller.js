@@ -7,5 +7,10 @@ const getStudents = (req, res) => {
     res.status(200).json(result.rows);
   });
 };
+const getStudentsById = (req, res) => {
+  const { id } = req.pramas;
+  id = Number(id);
+  console.log("here", typeof id);
+};
 
 module.exports = { getStudents };
