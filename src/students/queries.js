@@ -1,1 +1,4 @@
-const getStudents = "SELECT * FROM students";
+const getStudentsQ = "SELECT * FROM students";
+
+
+module.exports = { getStudentsQ };
