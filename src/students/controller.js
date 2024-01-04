@@ -1,5 +1,5 @@
 const data = require("../../config/db");
-const { getStudentsQ, queryStudentsById } = require("./queries");
+const { getStudentsQ, queryStudentsById, checkIfEmaiExist } = require("./queries");
 
 const getStudents = (req, res) => {
   data.query(getStudentsQ, (error, result) => {
