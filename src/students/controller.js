@@ -1,5 +1,9 @@
 const data = require("../../config/db");
-const { getStudentsQ, queryStudentsById, checkIfEmaiExist } = require("./queries");
+const {
+  getStudentsQ,
+  queryStudentsById,
+  checkIfEmaiExist,
+} = require("./queries");
 
 const getStudents = (req, res) => {
   data.query(getStudentsQ, (error, result) => {
@@ -20,10 +24,7 @@ const addStudents = (req, res) => {
   const { name, email, age, dob } = req.body;
   // check if email exists
   data.query(checkIfEmaiExist, [email], (err, result) => {
-    if (err) throw err;
-    if (result.rows.length) {
-      res.send(("Email Already Exist"))
-    }
+    if (result.rows.length) res.send("Email Already Exist");
   });
 };
 
