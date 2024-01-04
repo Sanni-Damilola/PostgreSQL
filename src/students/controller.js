@@ -1,4 +1,3 @@
-// studentsController.js
 const data = require("../../config/db");
 const {
   SELECT_ALL_STUDENTS,
