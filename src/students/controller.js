@@ -23,8 +23,12 @@ const getStudentsById = (req, res) => {
 const addStudents = (req, res) => {
   const { name, email, age, dob } = req.body;
   // check if email exists
-  data.query(checkIfEmaiExist, [email], (err, result) => {
-    if (result.rows.length) res.send("Email Already Exist");
+  data.query(checkIfEmaiExist, [email], (err, results) => {
+    console.log("here", results);
+    if (err) throw err;
+    if (results.rows.length) {
+      res.send("Email Already Exist");
+    }
   });
 };
 
