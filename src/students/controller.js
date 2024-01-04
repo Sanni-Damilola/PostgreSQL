@@ -18,7 +18,11 @@ const getStudentsById = (req, res) => {
 
 const addStudents = (req, res) => {
   const { name, email, age, dob } = req.body;
-  
+  // check if email exists
+  data.query(checkIfEmaiExist, [email], (err, result) => {
+    if (err) throw err;
+    
+  });
 };
 
 module.exports = { getStudents, getStudentsById, addStudents };
