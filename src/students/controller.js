@@ -1,35 +1,54 @@
+// studentsController.js
 const data = require("../../config/db");
 const {
-  getStudentsQ,
-  queryStudentsById,
-  checkIfEmaiExist,
+  SELECT_ALL_STUDENTS,
+  SELECT_STUDENT_BY_ID,
+  CHECK_EMAIL_EXISTENCE,
 } = require("./queries");
 
-const getStudents = (req, res) => {
-  data.query(getStudentsQ, (error, result) => {
-    if (error) throw error;
+// Get all students
+const getStudents = async (req, res) => {
+  try {
+    const result = await data.query(SELECT_ALL_STUDENTS);
     res.status(200).json(result.rows);
-  });
-};
-const getStudentsById = (req, res) => {
-  let { id } = req.params;
-  id = Number(id);
-  data.query(queryStudentsById, [id], (error, result) => {
-    if (error) throw error;
-    res.status(200).json(result.rows);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
-const addStudents = (req, res) => {
-  const { name, email, age, dob } = req.body;
-  // check if email exists
-  data.query(checkIfEmaiExist, [email], (err, results) => {
-    console.log("here", results);
-    if (err) throw err;
-    if (results.rows.length) {
-      res.send("Email Already Exist");
+// Get student by ID
+const getStudentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await data.query(SELECT_STUDENT_BY_ID, [Number(id)]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// Add a new student
+const addStudent = async (req, res) => {
+  try {
+    const { name, email, age, dob } = req.body;
+
+    // Check if email exists
+    const emailExistenceResult = await data.query(CHECK_EMAIL_EXISTENCE, [email]);
+
+    if (emailExistenceResult.rows.length) {
+      res.status(400).send("Email Already Exists");
+    } else {
+      // Perform the insertion logic here
+      // Example: await data.query("INSERT INTO students (name, email, age, dob) VALUES ($1, $2, $3, $4)", [name, email, age, dob]);
+
+      res.status(200).send("Student added successfully");
     }
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
-module.exports = { getStudents, getStudentsById, addStudents };
+module.exports = { getStudents, getStudentById, addStudent };

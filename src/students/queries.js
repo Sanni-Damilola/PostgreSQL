@@ -1,5 +1,7 @@
-const getStudentsQ = "SELECT * FROM students";
-const queryStudentsById = "SELECT * FROM students WHERE id = $1";
-const checkIfEmaiExist = "SELECT s FROM students WHERE s.email = $1";
+// queries.js
+const SELECT_ALL_STUDENTS = "SELECT * FROM students";
+const SELECT_STUDENT_BY_ID = "SELECT * FROM students WHERE id = $1";
+const CHECK_EMAIL_EXISTENCE = "SELECT * FROM students WHERE email = $1";
 
-module.exports = { getStudentsQ, queryStudentsById, checkIfEmaiExist };
+module.exports = { SELECT_ALL_STUDENTS, SELECT_STUDENT_BY_ID, CHECK_EMAIL_EXISTENCE };
+
