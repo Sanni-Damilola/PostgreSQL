@@ -16,4 +16,8 @@ const getStudentsById = (req, res) => {
   });
 };
 
-module.exports = { getStudents, getStudentsById };
+const addStudents = (req, res) => {
+  
+}
+
+module.exports = { getStudents, getStudentsById, addStudents };
