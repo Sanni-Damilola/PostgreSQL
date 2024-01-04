@@ -17,7 +17,8 @@ const getStudentsById = (req, res) => {
 };
 
 const addStudents = (req, res) => {
+  const { name, email, age, dob } = req.body;
   
-}
+};
 
 module.exports = { getStudents, getStudentsById, addStudents };
