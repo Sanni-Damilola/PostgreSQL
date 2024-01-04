@@ -3,6 +3,7 @@ const {
   SELECT_ALL_STUDENTS,
   SELECT_STUDENT_BY_ID,
   CHECK_EMAIL_EXISTENCE,
+  INSERT_QUERY,
 } = require("./queries");
 
 // Get all students
@@ -34,19 +35,20 @@ const addStudent = async (req, res) => {
     const { name, email, age, dob } = req.body;
 
     // Check if email exists
-    const emailExistenceResult = await data.query(CHECK_EMAIL_EXISTENCE, [email]);
+    const emailExistenceResult = await data.query(CHECK_EMAIL_EXISTENCE, [
+      email,
+    ]);
 
     if (emailExistenceResult.rows.length) {
-      res.status(400).send("Email Already Exists");
-    } else {
-      // Perform the insertion logic here
-      // Example: await data.query("INSERT INTO students (name, email, age, dob) VALUES ($1, $2, $3, $4)", [name, email, age, dob]);
-
-      res.status(200).send("Student added successfully");
+      return res.status(400).send("Email Already Exists");
     }
+
+    await data.query(INSERT_QUERY, [name, email, age, dob]);
+
+    return res.status(201).send("Student added successfully");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 };
 
