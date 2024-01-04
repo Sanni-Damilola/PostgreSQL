@@ -21,7 +21,9 @@ const addStudents = (req, res) => {
   // check if email exists
   data.query(checkIfEmaiExist, [email], (err, result) => {
     if (err) throw err;
-    
+    if (result.rows.length) {
+      res.send(("Email Already Exist"))
+    }
   });
 };
 
