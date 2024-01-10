@@ -1,4 +1,4 @@
-const data = require("../../config/db");
+const data = require("../config/db");
 const {
   SELECT_ALL_STUDENTS,
   SELECT_STUDENT_BY_ID,
