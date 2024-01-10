@@ -1,4 +1,4 @@
-const express = require("express");
+const { Router } = require("express");
 const {
   getStudents,
   addStudent,
@@ -6,7 +6,7 @@ const {
   removeStudent,
   updateStudent,
 } = require("../controllers/controller");
-const router = express.Router();
+const router = Router();
 
 router.get("/", getStudents);
 router.get("/:id", getStudentById);
